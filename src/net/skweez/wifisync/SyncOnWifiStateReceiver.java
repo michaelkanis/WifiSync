@@ -11,7 +11,7 @@ import android.util.Log;
 
 public class SyncOnWifiStateReceiver extends BroadcastReceiver {
 
-	private static String TAG = "AutoSync";
+	private static String TAG = "WifiSync";
 
 	@Override
 	public void onReceive(Context context, Intent intent) {
