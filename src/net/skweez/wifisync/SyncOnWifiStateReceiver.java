@@ -43,17 +43,11 @@ public class SyncOnWifiStateReceiver extends BroadcastReceiver {
 		}
 	}
 
-	/**
-	 * 
-	 */
 	private void enableSync() {
 		ContentResolver.setMasterSyncAutomatically(true);
 		Log.d(TAG, "Auto sync enabled.");
 	}
 
-	/**
-	 * 
-	 */
 	private void disableSync() {
 		ContentResolver.setMasterSyncAutomatically(false);
 		Log.d(TAG, "Auto sync disabled.");
