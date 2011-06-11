@@ -1,2 +1,4 @@
 Android app to automatically enable/disable auto sync when WLAN gets
-connected/disconnected.
+connected/disconnected. The app doesn't feature any UI. It should just work
+in the background. There is no way to "deactivate it", so if you don't want it
+anymore, deinstall it in the manage applications menu of your phone. 
