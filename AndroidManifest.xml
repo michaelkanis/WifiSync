@@ -8,10 +8,11 @@
 
 		<receiver android:name=".SyncOnWifiStateReceiver">
 			<intent-filter>
+				<!-- Used when the device (dis-)connects to WiFi. -->
 				<action android:name="android.net.wifi.STATE_CHANGE" />
-				<action android:name="android.net.wifi.supplicant.CONNECTION_CHANGE" />
-				
-				<action android:name="android.net.wifi.supplicant.STATE_CHANGE" />
+
+				<!-- Used when user disables WiFi. The above broadcast is not sent in 
+					that case. -->
 				<action android:name="android.net.wifi.WIFI_STATE_CHANGED" />
 			</intent-filter>
 		</receiver>

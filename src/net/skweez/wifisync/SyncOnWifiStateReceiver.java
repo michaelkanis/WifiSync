@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.net.NetworkInfo;
 import android.net.NetworkInfo.State;
 import android.net.wifi.WifiManager;
-import android.os.Bundle;
 import android.util.Log;
 
 public class SyncOnWifiStateReceiver extends BroadcastReceiver {
@@ -22,40 +21,42 @@ public class SyncOnWifiStateReceiver extends BroadcastReceiver {
 
 		if (action.equals(WifiManager.NETWORK_STATE_CHANGED_ACTION)) {
 
-			final NetworkInfo networkInfo = (NetworkInfo) intent
+			final NetworkInfo networkInfo = intent
 					.getParcelableExtra(WifiManager.EXTRA_NETWORK_INFO);
 
 			if (networkInfo.getState().equals(State.CONNECTED)) {
-				ContentResolver.setMasterSyncAutomatically(true);
-				Log.d(TAG, "Auto sync enabled.");
+				enableSync();
+			} else if (networkInfo.getState().equals(State.DISCONNECTED)) {
+				disableSync();
 			}
 
-		} else if (action
-				.equals(WifiManager.SUPPLICANT_CONNECTION_CHANGE_ACTION)) {
+		} else if (action.equals(WifiManager.WIFI_STATE_CHANGED_ACTION)) {
 
-			final boolean connected = intent.getBooleanExtra(
-					WifiManager.EXTRA_SUPPLICANT_CONNECTED, true);
+			final int wifiState = intent.getIntExtra(
+					WifiManager.EXTRA_WIFI_STATE,
+					WifiManager.WIFI_STATE_ENABLED);
 
-			if (connected == false) {
-				ContentResolver.setMasterSyncAutomatically(false);
-				Log.d(TAG, "Auto sync disabled.");
+			if (wifiState == WifiManager.WIFI_STATE_DISABLED) {
+				disableSync();
 			}
-
-		} else {
-
-			Log.d(TAG, "action: " + action);
-			debugExtras(intent);
 
 		}
 	}
 
 	/**
-	 * @param intent
+	 * 
 	 */
-	private void debugExtras(final Intent intent) {
-		Bundle extras = intent.getExtras();
-		for (String key : extras.keySet()) {
-			Log.d(TAG, key + "=" + extras.get(key));
-		}
+	private void enableSync() {
+		ContentResolver.setMasterSyncAutomatically(true);
+		Log.d(TAG, "Auto sync enabled.");
 	}
+
+	/**
+	 * 
+	 */
+	private void disableSync() {
+		ContentResolver.setMasterSyncAutomatically(false);
+		Log.d(TAG, "Auto sync disabled.");
+	}
+
 }
