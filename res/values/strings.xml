@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!-- @ConQAT.Rating GREEN Hash: 07F6E2FBB0A3418327175DFC0FB95D2C-->
+
 <resources>
     <string name="app_name">WifiSync</string>
 </resources>
